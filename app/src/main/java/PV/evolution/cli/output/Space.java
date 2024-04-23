@@ -4,18 +4,21 @@
  */
 package PV.evolution.cli.output;
 
+import PV.evolution.cli.Component;
+
 /**
  *
  * @author Wibowo
  */
 
-public class Space {
+public class Space implements Component{
   private int width;
 
   public Space(int width){
     this.width = width;
   }
   
+  @Override
   public void draw(){
     System.out.print("|");
     for(int i = 0; i < this.width; i++){

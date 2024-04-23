@@ -8,14 +8,16 @@ package PV.evolution.cli.output;
  *
  * @author Wibowo
  */
+import PV.evolution.cli.Component;
 
-public class HLine {
+public class HLine implements Component{
   private int width;
 
   public HLine(int width){
     this.width = width;
   }
-
+  
+  @Override
   public void draw(){
     System.out.print("+");
     for(int i = 0; i < this.width; i++){

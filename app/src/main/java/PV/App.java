@@ -3,18 +3,19 @@
  */
 package PV;
 
-import PV.evolution.cli.page.MainPage;
+import PV.evolution.cli.pages.MainPage;
 import PV.evolution.models.DataPassword;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args){
         // Memuat data dari file CSV saat program pertama kali dijalankan
         DataPassword.loadCSVData();
-        
+
         // Menampilkan halaman utama
-        MainPage mainPage = new MainPage("Password Vault", 100);
+        MainPage mainPage = new MainPage(100);  
         mainPage.draw();
-        
+
         // Tambahkan hook untuk menyimpan data sebelum program ditutup
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override

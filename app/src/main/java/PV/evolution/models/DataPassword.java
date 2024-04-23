@@ -23,7 +23,7 @@ import org.apache.commons.csv.CSVRecord;
 public class DataPassword {
     public static final ArrayList<PasswordStore> passData = new ArrayList<>();
     private static final String csvPath = "./datapassword.csv";
-    private static final String [] headers = {"name", "username", "password", "hashkey", "category", "score"};
+    private static final String [] headers = {"id", "name", "username", "password", "hashkey", "category", "score"};
     
     public static void saveCSVData(){
         if(passData.isEmpty()){
@@ -34,7 +34,7 @@ public class DataPassword {
                 CSVFormat formater = CSVFormat.DEFAULT.builder().setHeader(headers).build();
                 CSVPrinter printer = new CSVPrinter(writer, formater);
                 for(PasswordStore pass: passData){
-                    printer.printRecord(pass.name, pass.username, pass.getEncPassword(), pass.getHashkey(), pass.getCategoryCode(), pass.getScore());
+                    printer.printRecord(pass.id, pass.name, pass.username, pass.getEncPassword(), pass.getHashkey(), pass.getCategoryCode(), pass.getScore());
             }
             printer.flush();
             } catch (IOException ex) {
@@ -55,12 +55,14 @@ public class DataPassword {
                 PasswordStore newPass;
                 if(record.get("hashkey") == null){
                     newPass = new PasswordStore(
+                    Integer.parseInt(record.get("id")),
                     record.get("name"),
                     record.get("username"),
                     record.get("password"),
                     Integer.parseInt(record.get("category")));
                 } else {
                     newPass = new PasswordStore(
+                    Integer.parseInt(record.get("id")),
                     record.get("name"),
                     record.get("username"),
                     record.get("password"),

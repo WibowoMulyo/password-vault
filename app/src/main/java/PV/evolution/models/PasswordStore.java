@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 public class PasswordStore {
   public String name, username;
+  public int id;
   private String password, hashkey;
   private double score;
   private int category;
@@ -27,24 +28,26 @@ public class PasswordStore {
 
   public static final String [] CATEGORIES = {"Belum terkategori", "Aplikasi Web", "Aplikasi Mobile", "Akun Lainnya"};
 
-  public PasswordStore(String name, String username, String plainPass){
-      this(name, username, plainPass, UNCATEGORIZED);
+  public PasswordStore(int id, String name, String username, String plainPass){
+      this(id, name, username, plainPass, UNCATEGORIZED);
   }
 
-  public PasswordStore(String name, String username, String plainPass, int category){
+  public PasswordStore(int id, String name, String username, String plainPass, int category){
       try {
           this.hashkey = Encryptor.generateKey();
       } catch (NoSuchAlgorithmException ex) {
       Logger.getLogger(PasswordStore.class.getName()).log(Level.SEVERE, null, ex);
       }
       
+    this.id = id;
     this.name = name;
     this.username = username;
     this.setPassword(plainPass);
     this.setCategory(category);
   }
   
-  public PasswordStore(String name, String username, String encPass, int category, String hashKey, double score){
+  public PasswordStore(int id, String name, String username, String encPass, int category, String hashKey, double score){
+    this.id = id;
     this.name = name;
     this.username = username;
     this.password = encPass;
@@ -118,7 +121,22 @@ public class PasswordStore {
 
   @Override
   public String toString() {
-    return this.username+" - "+this.password+" - "+this.hashkey+" - " + String.format("%,.2f", this.score);
-  }
+    StringBuilder sb = new StringBuilder();
+        sb.append("Kategori: ");
+        sb.append(this.getCategory());
+        sb.append("\n");
+        sb.append("Username: ");
+        sb.append(this.username);
+        sb.append("\n");
+        sb.append("Password: ");
+        sb.append(this.password);
+        sb.append("\n");
+        sb.append("Hashkey: ");
+        sb.append(this.hashkey);
+        sb.append("\n");
+        sb.append("Score: ");
+        sb.append(String.format("%,.2f", this.score));
+        return sb.toString();    
+    }
 }
 

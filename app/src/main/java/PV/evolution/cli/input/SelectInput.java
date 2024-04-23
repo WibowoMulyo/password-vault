@@ -4,47 +4,44 @@
  */
 package PV.evolution.cli.input;
 
+import PV.evolution.cli.Component;
+import PV.evolution.cli.output.Label;
+
 /**
  *
  * @author Wibowo
  */
 
-public class SelectInput extends Input {
+public class SelectInput implements Component {
   private String[] selection;
   private int width;
+  private int value;
+  private Label label;
   private Input input;
 
   public SelectInput(String label, String[] selection, int width){
-    super(label);
     this.selection = selection;
     this.width = width;
-  }
-
-  @Override
-  public void draw(){
-    int length = this.width - super.label.length() - 2;
-    
-    System.out.print("|  " + super.label);
-    for(int i = 0; i < length; i++){
-      System.out.print(" ");
-    }
-    System.out.println("|");
-
-    for(int i = 0; i < this.selection.length; i++){
-      int length2 = this.width - this.selection[i].length() - 8;
-      System.out.print("|    " + "[" + (i+1) + "] " + this.selection[i]);
-      for(int j = 0; j < length2; j++){
-        System.out.print(" ");
-      }
-      System.out.println("|");
-    }
-
-    System.out.print("|  Pilihan : ");
-  }
-
-  @Override
-  public int getValueInt(){
-    return super.getValueInt();
+    this.label = new Label(label, width);
+    this.input = new Input("Pilihan");
   }
   
+@Override
+public void draw(){
+    this.label.draw();
+
+    for(int i = 0; i < this.selection.length; ++i) {
+        this.label.text = "  [" + (i + 1) + "] " + this.selection[i];
+        this.label.draw();
+    }
+
+    
+    this.input.draw();   
+    this.value = this.input.getValueInt();
+}
+
+  
+  public int getValue(){
+    return this.value;
+  }
 }

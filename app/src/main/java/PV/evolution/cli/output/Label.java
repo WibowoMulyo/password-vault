@@ -4,12 +4,14 @@
  */
 package PV.evolution.cli.output;
 
+import PV.evolution.cli.Component;
+
 /**
  *
  * @author Wibowo
  */
 
-public class Label {
+public class Label implements Component{
   public String text;
   private int width; 
 
@@ -18,6 +20,7 @@ public class Label {
     this.text = text;
   }
 
+  @Override
   public void draw(){
     int length = this.width - this.text.length() - 2; 
     System.out.print("|  " + this.text);

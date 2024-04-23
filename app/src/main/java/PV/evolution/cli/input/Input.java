@@ -9,33 +9,34 @@ package PV.evolution.cli.input;
  * @author Wibowo
  */
 
+import PV.evolution.cli.Component;
 import java.util.Scanner;
 
-public class Input {
+public class Input implements Component{
   protected String label;
-  private Scanner input = new Scanner(System.in);
+  private Scanner input;
   private String value;
 
   public Input(String label){
     this.label = label;
+    this.input = new Scanner(System.in);
   }
 
+  @Override
   public void draw(){
     System.out.print("|  " + this.label + " : ");
+    this.value = this.input.nextLine();
   }
 
   public String getValue(){
-    this.value = input.nextLine();
     return this.value;
   }
 
   public int getValueInt(){
-    this.value = input.nextLine();
     return Integer.parseInt(this.value);
   }
   
   public double getValueDouble(){
-    this.value = input.nextLine();
     return Double.parseDouble(this.value);
   }
 }
